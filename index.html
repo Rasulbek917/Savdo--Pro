@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SavdoPro - Smart Business Dashboard</title>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Html5Qrcode for Camera Scanning -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- PUBLIC LANDING PAGE -->
+    <div class="landing-page" id="landing-page">
+        <!-- Landing Header -->
+        <header class="landing-header">
+            <div class="landing-brand">
+                <div class="brand-icon">
+                    <i data-lucide="shopping-cart"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Savdo<span>Pro</span></h1>
+                    <small>SMART BUSINESS</small>
+                </div>
+            </div>
+            <nav class="landing-nav">
+                <a href="#features">Xususiyatlar</a>
+                <a href="#about">Biz haqimizda</a>
+                <a href="#contact">Aloqa</a>
+            </nav>
+            <div class="landing-auth-buttons">
+                <button class="btn btn-outline" id="landing-btn-login">Tizimga kirish</button>
+                <button class="btn btn-primary" id="landing-btn-register">Ro'yxatdan o'tish</button>
+            </div>
+        </header>
+
+        <!-- Landing Hero Section -->
+        <section class="landing-hero">
+            <div class="hero-content">
+                <span class="hero-badge">YANGI AVLOD POS TIZIMI</span>
+                <h2>Biznesingizni <span>SavdoPro</span> bilan professional boshqaring</h2>
+                <p>Tezkor POS-terminal, ombor zaxiralari, real vaqt rejimidagi statistika, ajoyib dizayn va mijozlar qarzlari nazorati — hammasi bitta smart tizimda.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-hero" id="hero-btn-start">
+                        <span>Hozir boshlang (Bepul)</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                    <a href="#features" class="btn btn-secondary btn-hero">Batafsil ma'lumot</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-preview-card">
+                    <div class="preview-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="preview-title">SavdoPro POS Dashboard</span>
+                    </div>
+                    <div class="preview-body">
+                        <div class="preview-stats">
+                            <div class="p-stat">
+                                <span class="lbl">KUNLIK SAVDO</span>
+                                <span class="val">+1,570,000 UZS</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="lbl">SOF FOYDA</span>
+                                <span class="val" style="color:var(--color-success);">+1,320,000 UZS</span>
+                            </div>
+                        </div>
+                        <div class="preview-chart">
+                            <div class="bar" style="height: 30%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                            <div class="bar" style="height: 45%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Landing Features Section -->
+        <section class="landing-features" id="features">
+            <div class="section-title">
+                <h3>SavdoPro Xususiyatlari</h3>
+                <p>Kichik va o'rta biznes uchun eng yaxshi yechimlar</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="f-icon kassa"><i data-lucide="shopping-bag"></i></div>
+                    <h4>Tezkor POS Terminal</h4>
+                    <p>Mahsulotlarni shtrix-kod skanerlab yoki tezkor qidiruv bilan savatga qo'shib, soniyalar ichida savdoni yakunlang.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon ombor"><i data-lucide="package"></i></div>
+                    <h4>Ombor va Zaxira Nazorati</h4>
+                    <p>Zaxira qoldig'i kam qolgan yoki tugagan mahsulotlarni real vaqtda kuzating, tahrirlang va hisobga oling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon qarz"><i data-lucide="wallet"></i></div>
+                    <h4>Qarzlar Tracker</h4>
+                    <p>Mijozlar qarzlarini alohida daftar ko'rinishida yuritib, to'langan va to'lanmagan qarzlar hisobotini yurgizing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon stats"><i data-lucide="trending-up"></i></div>
+                    <h4>Real-Time Analitika</h4>
+                    <p>Kunlik, haftalik yoki oylik tushum, xarajat va sof foydangizni interaktiv grafiklar va hisobotlar orqali tahlil qiling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon tenant"><i data-lucide="shield-check"></i></div>
+                    <h4>Alohida Do'konlar</h4>
+                    <p>Har bir foydalanuvchining ma'lumotlari to'liq alohida bo'ladi va xavfsiz localStorage da partitioned holda saqlanadi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon sound"><i data-lucide="volume-2"></i></div>
+                    <h4>Chiling Ovoz Efekti</h4>
+                    <p>Savdo yakunlangan paytda metall tangalarning professional "chiling" tovush effekti biznes muhitini jonlantiradi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Landing Footer -->
+        <footer class="landing-footer-section">
+            <p>© 2026 SavdoPro - Kichik va o'rta biznes uchun kassa va hisobot boshqaruv platformasi.</p>
+        </footer>
+    </div>
+
+    <div class="app-container hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i data-lucide="shopping-cart"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Savdo<span>Pro</span></h1>
+                    <small>SMART BUSINESS</small>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-view="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Bosh sahifa</span>
+                </a>
+                <a href="#" class="menu-item" data-view="categories">
+                    <i data-lucide="tags"></i>
+                    <span>Kategoriyalar</span>
+                </a>
+                <a href="#" class="menu-item" data-view="products">
+                    <i data-lucide="package"></i>
+                    <span>Mahsulotlar</span>
+                </a>
+                <a href="#" class="menu-item" data-view="low-stock">
+                    <i data-lucide="alert-triangle"></i>
+                    <span>Kam qolganlar</span>
+                    <span class="badge badge-danger" id="low-stock-count-badge">0</span>
+                </a>
+                <a href="#" class="menu-item" data-view="best-sellers">
+                    <i data-lucide="trending-up"></i>
+                    <span>Ko'p sotilganlar</span>
+                </a>
+                <a href="#" class="menu-item" data-view="debts">
+                    <i data-lucide="wallet"></i>
+                    <span>Qarzlar</span>
+                </a>
+                <a href="#" class="menu-item" data-view="admin" id="menu-item-admin" style="display:none;">
+                    <i data-lucide="users"></i>
+                    <span>Admin Boshqaruvi</span>
+                </a>
+                <a href="#" class="menu-item btn-pos" data-view="sell">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>Sotuv (POS)</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-user">
+                <div class="user-avatar">S</div>
+                <div class="user-info">
+                    <h4>shop</h4>
+                    <p>Boshqaruvchi</p>
+                </div>
+                <button class="logout-btn" title="Chiqish">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Navigation Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2 id="view-title">Bosh sahifa</h2>
+                    <span class="view-subtitle" id="view-subtitle">SAVDOPRO</span>
+                </div>
+                <div class="topbar-right">
+                    <button class="theme-toggle" id="theme-toggle-btn" title="Mavzuni o'zgartirish">
+                        <i data-lucide="sun"></i>
+                    </button>
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span class="status-text">ONLINE</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- 1. DASHBOARD VIEW -->
+                <section id="dashboard-view" class="view-panel active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <p class="stat-label">JAMI TUSHUM</p>
+                                <h3 class="stat-value" id="stat-revenue">0 So'm</h3>
+                            </div>
+                            <div class="stat-icon revenue">
+                                <i data-lucide="arrow-up-right"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <p class="stat-label">TAN NARXI</p>
+                                <h3 class="stat-value" id="stat-cost">0 So'm</h3>
+                            </div>
+                            <div class="stat-icon cost">
+                                <i data-lucide="arrow-down-right"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <p class="stat-label">SOF FOYDA</p>
+                                <h3 class="stat-value" id="stat-profit">0 So'm</h3>
+                            </div>
+                            <div class="stat-icon profit">
+                                <i data-lucide="trending-up"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <p class="stat-label">QARZLAR</p>
+                                <h3 class="stat-value" id="stat-debts">0 So'm</h3>
+                            </div>
+                            <div class="stat-icon debts">
+                                <i data-lucide="credit-card"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-row">
+                        <!-- Sales Chart Card -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div class="chart-title-group">
+                                    <h3>Sotuvlar grafigi</h3>
+                                    <p>DAVR BO'YICHA TUSHUM VA FOYDA</p>
+                                </div>
+                                <div class="chart-actions">
+                                    <div class="period-toggle">
+                                        <button class="period-btn" data-period="day">BUGUN</button>
+                                        <button class="period-btn" data-period="week">HAFTA</button>
+                                        <button class="period-btn active" data-period="month">OY</button>
+                                        <button class="period-btn" data-period="year">YIL</button>
+                                    </div>
+                                    <button class="btn btn-export" id="btn-export-stats">
+                                        <i data-lucide="download"></i>
+                                        <span>Eksport</span>
+                                    </button>
+                                    <button class="btn btn-danger" id="btn-clear-store-data" title="Barcha ma'lumotlarni o'chirish" style="background-color: var(--color-danger-bg); border-color: rgba(239, 68, 68, 0.2); color: var(--color-danger); font-size: 0.75rem; padding: 8px 14px;">
+                                        <i data-lucide="trash-2"></i>
+                                        <span>Tozalash</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Widgets -->
+                        <div class="widgets-column">
+                            <!-- Low Stock Widget -->
+                            <div class="widget-card warning-card">
+                                <div class="widget-header">
+                                    <div>
+                                        <h3>Kam qolganlar</h3>
+                                        <p>ZAXIRANI TO'LDIRISH TAVSIYA ETILADI</p>
+                                    </div>
+                                    <span class="badge badge-warning-dark" id="widget-low-stock-badge">0 ta</span>
+                                </div>
+                                <div class="widget-body" id="widget-low-stock-list">
+                                    <!-- Low stock items will populate here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Products widget -->
+                    <div class="popular-products-card">
+                        <div class="widget-header">
+                            <div>
+                                <h3>Mashhur mahsulotlar</h3>
+                                <p>ENG KO'P SOTILGANLAR RO'YXATI</p>
+                            </div>
+                        </div>
+                        <div class="popular-list-grid" id="dashboard-popular-list">
+                            <!-- Top selling items list will populate here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. CATEGORIES VIEW -->
+                <section id="categories-view" class="view-panel">
+                    <div class="section-actions">
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-categories-input" placeholder="Kategoriyalardan qidirish...">
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-category">
+                            <i data-lucide="plus"></i>
+                            <span>Yangi kategoriya qo'shish</span>
+                        </button>
+                    </div>
+
+                    <div class="categories-grid" id="categories-list">
+                        <!-- Categories cards will render here dynamically -->
+                    </div>
+                </section>
+
+                <!-- 3. PRODUCTS VIEW -->
+                <section id="products-view" class="view-panel">
+                    <div class="section-actions flex-wrap">
+                        <div class="search-box flex-grow">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-products-input" placeholder="Mahsulot nomi yoki QR kod bilan qidirish...">
+                        </div>
+                        <div class="action-buttons-group">
+                            <button class="btn btn-outline" id="btn-scan-product" title="Shtrix kod bo'yicha tovar qidirish">
+                                <i data-lucide="search"></i>
+                                <span>Topish (QR)</span>
+                            </button>
+                            <button class="btn btn-outline" id="btn-scan-add-product" title="Skanerlab yangi tovar kiritish">
+                                <i data-lucide="plus-square"></i>
+                                <span>Kiritish (QR)</span>
+                            </button>
+                            <button class="btn btn-primary" id="btn-add-product">
+                                <i data-lucide="plus"></i>
+                                <span>Yangi mahsulot</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container card-panel">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mahsulot Nomi</th>
+                                    <th>Kategoriya</th>
+                                    <th>Tan Narxi</th>
+                                    <th>Sotish Narxi</th>
+                                    <th>Miqdori (O'lchov)</th>
+                                    <th>QR/Shtrix Kod</th>
+                                    <th>Harakatlar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Products rows will render here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4. LOW STOCK VIEW -->
+                <section id="low-stock-view" class="view-panel">
+                    <div class="warning-banner">
+                        <i data-lucide="alert-triangle"></i>
+                        <div>
+                            <h4>Zaxirada kam qolgan tovarlar ro'yxati</h4>
+                            <p>Quyidagi mahsulotlar zaxirasi belgilangan minimal miqdordan (5 dona yoki kg) kam qoldi. Zaxiralarni to'ldirish tavsiya etiladi.</p>
+                        </div>
+                    </div>
+                    <div class="table-container card-panel">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mahsulot Nomi</th>
+                                    <th>Kategoriya</th>
+                                    <th>Joriy Qoldiq</th>
+                                    <th>Tan Narxi</th>
+                                    <th>Sotish Narxi</th>
+                                    <th>Holat</th>
+                                    <th>Harakatlar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="low-stock-table-body">
+                                <!-- Low stock products will render here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 5. BEST SELLERS VIEW -->
+                <section id="best-sellers-view" class="view-panel">
+                    <div class="row-2-cols">
+                        <div class="card-panel flex-grow">
+                            <div class="chart-header">
+                                <div class="chart-title-group">
+                                    <h3>Eng ko'p sotilgan tovarlar</h3>
+                                    <p>BUGUN VA JAMI SOTUVLAR ANALITIKASI</p>
+                                </div>
+                            </div>
+                            <div class="top-selling-analytics-box" id="top-selling-today-box">
+                                <div class="highlight-sold-today">
+                                    <div class="highlight-icon">
+                                        <i data-lucide="award"></i>
+                                    </div>
+                                    <div class="highlight-info">
+                                        <span class="label">BUGUN ENG KO'P SOTILGAN TOVAR:</span>
+                                        <h2 id="top-product-today-name">Yuklanmoqda...</h2>
+                                        <p id="top-product-today-details">Miqdori: 0 dona/kg | Sof foyda: 0 So'm</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container margin-top-lg">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mahsulot Nomi</th>
+                                            <th>Kategoriya</th>
+                                            <th>Sotilgan Soni</th>
+                                            <th>Jami Tushum</th>
+                                            <th>Sof Foyda</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="best-sellers-table-body">
+                                        <!-- Best sellers list will populate here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. DEBTS VIEW -->
+                <section id="debts-view" class="view-panel">
+                    <div class="section-actions flex-wrap">
+                        <div class="search-box flex-grow">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-debts-input" placeholder="Mijoz ismi bo'yicha qidirish...">
+                        </div>
+                        <div class="filter-tabs" id="debts-filter-tabs">
+                            <button class="filter-btn active" data-filter="all">Barchasi</button>
+                            <button class="filter-btn" data-filter="unpaid">To'lanmaganlar</button>
+                            <button class="filter-btn" data-filter="paid">To'langanlar</button>
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-debt">
+                            <i data-lucide="plus-circle"></i>
+                            <span>Yangi qarz qo'shish</span>
+                        </button>
+                    </div>
+
+                    <div class="table-container card-panel">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mijoz Ismi</th>
+                                    <th>Telefon Raqami</th>
+                                    <th>Qarz Summasi</th>
+                                    <th>Sana</th>
+                                    <th>Izoh</th>
+                                    <th>Holat</th>
+                                    <th>Harakatlar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debts-table-body">
+                                <!-- Debts will render here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 7. POS / SELL VIEW -->
+                <section id="sell-view" class="view-panel">
+                    <div class="pos-layout">
+                        <!-- POS Left: Product Selection -->
+                        <div class="pos-catalog">
+                            <div class="pos-catalog-header">
+                                <div class="search-box flex-grow">
+                                    <i data-lucide="search"></i>
+                                    <input type="text" id="pos-search-input" placeholder="Tovar nomi yoki shtrix kodi...">
+                                </div>
+                                <button class="btn btn-outline-icon" id="pos-btn-scan" title="QR kod orqali tovar topish (Savatga qo'shish)">
+                                    <i data-lucide="qr-code"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="pos-categories" id="pos-category-filters">
+                                <!-- Categories tabs for filtering will generate here -->
+                            </div>
+
+                            <div class="pos-products-grid" id="pos-products-list">
+                                <!-- POS product items will populate here -->
+                            </div>
+                        </div>
+
+                        <!-- POS Right: Cart and Checkout -->
+                        <div class="pos-cart-panel">
+                            <div class="pos-cart-header">
+                                <h3>Sotuv savatchasi</h3>
+                                <button class="btn-clear-cart" id="btn-clear-cart" title="Savatchani tozalash">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </div>
+
+                            <div class="pos-cart-items" id="pos-cart-list">
+                                <!-- Cart items will populate here dynamically -->
+                                <div class="empty-cart-message">
+                                    <i data-lucide="shopping-cart"></i>
+                                    <p>Savatcha bo'sh. Mahsulot tanlang yoki shtrix kodni skanerlang.</p>
+                                </div>
+                            </div>
+
+                            <div class="pos-cart-footer">
+                                <div class="pos-total-row">
+                                    <span>Jami mahsulotlar:</span>
+                                    <span id="pos-total-count">0 dona</span>
+                                </div>
+                                <div class="pos-total-row final-total">
+                                    <span>Jami Summa:</span>
+                                    <span id="pos-total-sum">0 So'm</span>
+                                </div>
+
+                                <div class="pos-checkout-actions">
+                                    <button class="btn btn-outline flex-grow" id="pos-btn-qr-pay">
+                                        <i data-lucide="qr-code"></i>
+                                        <span>QR to'lov</span>
+                                    </button>
+                                    <button class="btn btn-danger flex-grow" id="pos-btn-debt" style="background-color: var(--color-warning-bg); border-color: rgba(245, 158, 11, 0.2); color: var(--color-warning);">
+                                        <i data-lucide="wallet"></i>
+                                        <span>Qarzga sotish</span>
+                                    </button>
+                                    <button class="btn btn-primary btn-checkout flex-grow" id="pos-btn-checkout">
+                                        <i data-lucide="check"></i>
+                                        <span>Sotish</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. ADMIN VIEW (ADMIN ONLY) -->
+                <section id="admin-view" class="view-panel">
+                    <div class="section-actions flex-wrap">
+                        <div class="search-box flex-grow">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-users-input" placeholder="Foydalanuvchilarni qidirish...">
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-user">
+                            <i data-lucide="user-plus"></i>
+                            <span>Yangi Foydalanuvchi qo'shish</span>
+                        </button>
+                    </div>
+
+                    <div class="table-container card-panel">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Foydalanuvchi Nomi</th>
+                                    <th>Parol</th>
+                                    <th>Do'kon Nomi</th>
+                                    <th>Huquqi (Roli)</th>
+                                    <th>Harakatlar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <!-- Users list populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL DIALOGS -->
+    
+    <!-- 1. CATEGORY MODAL -->
+    <div class="modal-backdrop" id="category-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="category-modal-title">Kategoriya qo'shish</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="category-form">
+                <input type="hidden" id="category-form-id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="category-name">Kategoriya Nomi *</label>
+                        <input type="text" id="category-name" required placeholder="Masalan: Mevalar, Kitoblar">
+                    </div>
+                    <div class="form-group">
+                        <label for="category-desc">Tavsif (Izoh)</label>
+                        <textarea id="category-desc" rows="3" placeholder="Kategoriya haqida batafsil ma'lumot..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. PRODUCT MODAL -->
+    <div class="modal-backdrop" id="product-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="product-modal-title">Yangi mahsulot qo'shish</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="product-form">
+                <input type="hidden" id="product-form-id">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group flex-grow">
+                            <label for="product-name">Mahsulot Nomi *</label>
+                            <input type="text" id="product-name" required placeholder="Masalan: Qizil Olma, Cola 1.5L">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Kategoriya *</label>
+                            <select id="product-category" required>
+                                <!-- Categories populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-cost">Tan Narxi (So'm) *</label>
+                            <input type="number" id="product-cost" min="0" required placeholder="Masalan: 12000">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-selling">Sotish Narxi (So'm) *</label>
+                            <input type="number" id="product-selling" min="0" required placeholder="Masalan: 18000">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-unit">O'lchov birligi *</label>
+                            <select id="product-unit" required>
+                                <option value="dona">dona (dona)</option>
+                                <option value="kg">kg (kilogramm)</option>
+                                <option value="litr">litr (litr)</option>
+                                <option value="metr">metr (metr)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-stock">Zaxira miqdori *</label>
+                            <input type="number" id="product-stock" min="0" step="any" required placeholder="Masalan: 100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-code">QR / Shtrix Kod (Skanerlash yoki avtomatik yaratish)</label>
+                        <div class="input-with-button">
+                            <input type="text" id="product-code" placeholder="QR kod qiymati">
+                            <button type="button" class="btn btn-outline" id="btn-generate-barcode" title="Kod yaratish">Yaratish</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. DEBT MODAL -->
+    <div class="modal-backdrop" id="debt-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="debt-modal-title">Yangi qarz yozuvi</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="debt-form">
+                <input type="hidden" id="debt-form-id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="debt-customer">Mijoz Ismi-Sharifi *</label>
+                        <input type="text" id="debt-customer" required placeholder="Mijoz to'liq ismini kiriting...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="debt-phone">Telefon Raqami</label>
+                            <input type="text" id="debt-phone" placeholder="Masalan: +998901234567">
+                        </div>
+                        <div class="form-group">
+                            <label for="debt-amount">Qarz Summasi (So'm) *</label>
+                            <input type="number" id="debt-amount" min="0" required placeholder="Summani kiriting...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="debt-date">Sana *</label>
+                            <input type="date" id="debt-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="debt-status">Holat *</label>
+                            <select id="debt-status" required>
+                                <option value="unpaid">To'lanmagan</option>
+                                <option value="paid">To'langan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="debt-notes">Izoh / Tafsilotlar</label>
+                        <textarea id="debt-notes" rows="2" placeholder="Nima sotib olindi, qachon qaytarishi haqida..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. CAMERA SCANNER MODAL -->
+    <div class="modal-backdrop" id="scanner-modal">
+        <div class="modal-card modal-scanner">
+            <div class="modal-header">
+                <h3>QR / Barcode Kameradan Skanerlash</h3>
+                <button class="modal-close-btn" id="btn-close-scanner">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="qr-reader" class="scanner-camera-viewport"></div>
+                <div class="scanner-status" id="scanner-status-text">Kamera ishga tushmoqda...</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-stop-scanner-cancel">Yopish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. CATEGORY PRODUCTS LIST MODAL -->
+    <div class="modal-backdrop" id="category-products-modal">
+        <div class="modal-card modal-large">
+            <div class="modal-header">
+                <h3 id="category-products-modal-title">Kategoriya ichidagi mahsulotlar</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mahsulot Nomi</th>
+                                <th>Tan Narxi</th>
+                                <th>Sotish Narxi</th>
+                                <th>Miqdori (O'lchov)</th>
+                                <th>Shtrix Kod</th>
+                                <th>Harakatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category-products-table-body">
+                            <!-- Populated dynamically by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close-btn">Yopish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. POS RECEIPT / QR PAY MODAL -->
+    <div class="modal-backdrop" id="receipt-modal">
+        <div class="modal-card receipt-card">
+            <div class="modal-header">
+                <h3 id="receipt-modal-title">To'lov cheki va QR Kod</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="receipt-invoice" id="receipt-invoice-print">
+                    <div class="receipt-brand">
+                        <h2>SavdoPro</h2>
+                        <p>Smart Business POS</p>
+                        <p class="receipt-divider">=========================</p>
+                    </div>
+                    <div class="receipt-meta">
+                        <p>Chek #: <span id="receipt-id">1001</span></p>
+                        <p>Sana: <span id="receipt-time">2026-05-23 13:58</span></p>
+                    </div>
+                    <p class="receipt-divider">=========================</p>
+                    <div class="receipt-items-list" id="receipt-items-rows">
+                        <!-- Populated by POS checkout -->
+                    </div>
+                    <p class="receipt-divider">=========================</p>
+                    <div class="receipt-totals">
+                        <div class="receipt-total-row">
+                            <span>JAMI TO'LOV:</span>
+                            <strong id="receipt-total-amount">0 So'm</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="receipt-qr-payment">
+                    <h4>Click / Payme / QR To'lov</h4>
+                    <div id="receipt-qr-canvas-holder" class="qr-canvas-holder">
+                        <!-- Custom QR Code SVG generated dynamically -->
+                    </div>
+                    <p class="qr-subtext">Mobil ilovangiz orqali skanerlang va to'lovni tasdiqlang</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" id="btn-print-receipt">
+                    <i data-lucide="printer"></i>
+                    <span>Chop etish</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-confirm-sale-success">
+                    <i data-lucide="check-circle"></i>
+                    <span>Tugatish</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. USER MODAL (ADMIN ONLY) -->
+    <div class="modal-backdrop" id="user-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="user-modal-title">Yangi foydalanuvchi qo'shish</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="user-form">
+                <input type="hidden" id="user-form-id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="user-username">Foydalanuvchi Nomi *</label>
+                        <input type="text" id="user-username" required placeholder="Masalan: kitobchi, alixon">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Maxfiy Parol *</label>
+                        <input type="text" id="user-password" required placeholder="Maxfiy parolni kiriting">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-shopname">Do'kon Nomi *</label>
+                        <input type="text" id="user-shopname" required placeholder="Masalan: Kitoblar Olami, Meva bozori">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-role">Roli (Huquqi) *</label>
+                        <select id="user-role" required>
+                            <option value="staff">Do'kon xodimi (Staff)</option>
+                            <option value="admin">Tizim Administratori (Admin)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN OVERLAY -->
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-brand-icon">
+                    <i data-lucide="shopping-cart"></i>
+                </div>
+                <h2>SavdoPro</h2>
+                <p>Smart Business POS Tizimi</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Foydalanuvchi nomi</label>
+                    <input type="text" id="login-username" required placeholder="Foydalanuvchi nomini kiriting">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Maxfiy parol</label>
+                    <input type="password" id="login-password" required placeholder="Parolni kiriting">
+                </div>
+                <button type="submit" class="btn btn-primary btn-login" style="width:100%; margin-top:10px;">
+                    <span>Tizimga kirish</span>
+                    <i data-lucide="log-in"></i>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>© 2026 SavdoPro. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. REGISTER MODAL -->
+    <div class="modal-backdrop" id="register-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Yangi do'kon ochish (Ro'yxatdan o'tish)</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="register-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="register-username">Foydalanuvchi nomi *</label>
+                        <input type="text" id="register-username" required placeholder="Foydalanuvchi nomi (masalan: kitobchi)">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Maxfiy parol *</label>
+                        <input type="password" id="register-password" required placeholder="Maxfiy parolingiz...">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-shopname">Do'kon nomi *</label>
+                        <input type="text" id="register-shopname" required placeholder="Do'koningiz to'liq nomi (masalan: Kitoblar Olami)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Yaratish va kirish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 9. POS DEBT MODAL -->
+    <div class="modal-backdrop" id="pos-debt-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Qarzga sotishni rasmiylashtirish</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="pos-debt-form">
+                <input type="hidden" id="pos-debt-amount">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Umumiy summa:</label>
+                        <h2 id="pos-debt-amount-label" style="color:var(--color-warning); font-size:1.8rem; font-weight:800;">0 So'm</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="pos-debt-customer">Mijoz Ismi-Sharifi *</label>
+                        <input type="text" id="pos-debt-customer" required placeholder="Mijozning to'liq ismi...">
+                    </div>
+                    <div class="form-group">
+                        <label for="pos-debt-phone">Telefon Raqami</label>
+                        <input type="text" id="pos-debt-phone" placeholder="Masalan: +998901234567">
+                    </div>
+                    <div class="form-group">
+                        <label for="pos-debt-notes">Izohlar / Tafsilotlar</label>
+                        <textarea id="pos-debt-notes" rows="2" placeholder="Tovarlar ro'yxati, muddati va hk..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary" style="background:var(--color-warning); border-color:var(--color-warning); box-shadow: 0 4px 15px rgba(245,158,11,0.3);">Qarzga sotish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
